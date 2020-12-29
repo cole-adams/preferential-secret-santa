@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class DataGenerator {
 
-	static final String[] things = {"a", "b", "c", "d", "n"};
+	static final String[] categories = {"a", "b", "c", "d", "n"};
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		
@@ -21,7 +21,7 @@ public class DataGenerator {
 			try {
 				generateCase(i, folder);
 			} catch(IOException e) {
-				System.out.println("Fuck you");
+				e.printStackTrace();
 			}
 		}
 		
@@ -39,18 +39,18 @@ public class DataGenerator {
 		writer.newLine();
 		
 		for (int j = 0; j<num; j++) {
-			for (int wes = 0; wes < 2; wes++) {
+			for (int m = 0; m < 2; m++) {
 				String out = "";
-				ArrayList<String> otherVariable = giveMeStuff();
+				ArrayList<String> remainingCategories = getListOfCategories();
 				for (int k = 0; k < 4; k++) {
-					String thisOne = otherVariable.remove(r.nextInt(otherVariable.size()));
-					if (thisOne.equals("n")) {
+					String category = remainingCategories.remove(r.nextInt(remainingCategories.size()));
+					if (category.equals("n")) {
 						for (int l = k; l < 4; l++) {
-							out+=thisOne + " ";
+							out+=category + " ";
 						}
 						break;
 					} else {
-						out+=thisOne + " ";
+						out+=category + " ";
 					}
 				}
 				writer.append(out);
@@ -61,12 +61,12 @@ public class DataGenerator {
 		writer.close();
 	}
 	
-	private static ArrayList<String> giveMeStuff() {
-		ArrayList<String> theGoods = new ArrayList<String>();
-		for (String some : things) {
-			theGoods.add(some);
+	private static ArrayList<String> getListOfCategories() {
+		ArrayList<String> out = new ArrayList<String>();
+		for (String s : categories) {
+			out.add(s);
 		}
-		return theGoods;
+		return out;
 	}
 
 }
